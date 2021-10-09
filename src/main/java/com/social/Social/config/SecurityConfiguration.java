@@ -34,16 +34,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/**"
-//                        , "/api/user/signup",
-//                        "/api/stats/get",
-//                        "/api/user/logout",
-//                        "/api/question/get/**",
-//                        "/api/reply/question/**"
+                .antMatchers("/api/user/test"
+                        , "/api/user/signup"
+                        , "/api/user/logout"
+                        , "/api/user/authenticate"
                 )
                 .permitAll()
-//                .antMatchers("/api/user/authenticate").permitAll().anyRequest().authenticated()
-                .and().formLogin();
+                .anyRequest()
+                .authenticated()
+                .and()
+                .formLogin();
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 

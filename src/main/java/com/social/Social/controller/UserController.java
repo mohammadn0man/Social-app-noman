@@ -16,14 +16,13 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-//@RequestMapping("/api/user")
+@RequestMapping("/api/user")
 public class UserController {
     private final UserService userService;
 
-
-    @GetMapping("/")
+    @GetMapping("/test")
     public String home() {
-        return ("<h1>Welcome</h1>");
+        return ("<p>"+userService.loadUserByUsername("alpha")+"</p>");
     }
 
     /***

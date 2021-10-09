@@ -10,7 +10,8 @@ public class ResponseUtil {
 
     public static ResponseEntity<String> filterResponse(boolean flag) throws RequestParameterException {
         if (!flag) {
-            throw new RequestParameterException("Invalid parameter in request");
+            throw new RequestParameterException("There is some problem in serving your request." +
+                    " Please check your parameter in request.");
         }
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("RESPONSE_SUBMITTED");
     }

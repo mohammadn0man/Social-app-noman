@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Builder
 @Data
@@ -32,6 +33,14 @@ public class User {
     private String fullName;
     private String password;
 
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = FollowerRecord.class)
+    @JoinColumn(name = "followed_by_user_id")
+    private List<FollowerRecord> following;
+
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = FollowerRecord.class)
+    @JoinColumn(name = "followed_to_user_id")
+    private List<FollowerRecord> followers;
+
     @JsonIgnore
     public String getPassword() {
         return password;
@@ -41,4 +50,5 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }
