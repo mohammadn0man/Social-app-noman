@@ -30,7 +30,7 @@ public class PostService {
      * @return boolean response
      */
     public boolean addPost(PostDto postDto) {
-        var postModel = MapperUtil.getModelMapper()
+        Post postModel = MapperUtil.getModelMapper()
                 .map(postDto, Post.class);
         postModel.setTimestamp(new Date());
         try {
@@ -51,7 +51,7 @@ public class PostService {
      */
     public List<PostDto> getPost(String userName) {
         List<Integer> user = getUsersList(userName);
-        var posts = new ArrayList<Post>();
+        List<Post> posts = new ArrayList<Post>();
         for (int i : user) {
             posts.addAll(postRepository.findAllByUser(userService.getUserById(i).orElseGet(null)));
         }
@@ -65,9 +65,9 @@ public class PostService {
     }
 
     @NotNull
-    private List<PostDto> getPostDto(ArrayList<Post> res) {
+    private List<PostDto> getPostDto(List<Post> res) {
         List<PostDto> ret = new ArrayList<>();
-        for (var x : res) {
+        for (Post x : res) {
             ret.add(MapperUtil.getModelMapper().map(x, PostDto.class));
         }
         return ret;

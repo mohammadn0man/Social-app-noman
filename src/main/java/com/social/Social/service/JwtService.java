@@ -42,7 +42,7 @@ public class JwtService {
      * @return object of claims with data
      */
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final var claims = extractAllClaims(token);
+        final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
 

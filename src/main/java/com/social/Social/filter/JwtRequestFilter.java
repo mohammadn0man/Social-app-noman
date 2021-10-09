@@ -3,6 +3,7 @@ package com.social.Social.filter;
 import com.social.Social.service.JwtService;
 import com.social.Social.service.TokenService;
 import com.social.Social.service.UserService;
+import com.social.Social.util.CustomUserDetails;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.impl.DefaultClaims;
 import io.jsonwebtoken.impl.DefaultHeader;
@@ -53,7 +54,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                     throw new ExpiredJwtException(new DefaultHeader(), new DefaultClaims(), "Expired Token");
                 }
             } catch (ExpiredJwtException e) {
-                var sb = new StringBuilder();
+                StringBuilder sb = new StringBuilder();
                 sb.append("{ ");
                 sb.append("\"error\": \"Unauthorized\",\n");
                 sb.append("\"message\": \"TOKEN_EXPIRED\",\n");
@@ -70,11 +71,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         if (username != null
                 && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-            var userDetails = this.userDetailsService.loadUserByUsername(username);
+            CustomUserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
 
             if (Boolean.TRUE.equals(jwtService.validateToken(jwt, userDetails))) {
 
-                var usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 usernamePasswordAuthenticationToken
                         .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

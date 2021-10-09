@@ -24,7 +24,7 @@ public class FollowRecordService {
      * @return list of followers
      */
     public List<Integer> getFollowers(int id) {
-        var followers = followRecordRepository
+        Iterable<FollowRecord> followers = followRecordRepository
                 .findAllByFollowedByUserId(id);
         List<Integer> result = new ArrayList<>();
         for (FollowRecord x : followers) {
@@ -43,7 +43,7 @@ public class FollowRecordService {
         if (followRecordRepository.existsByFollowedByUserIdAndFollowedToUserId(followRecordDto.getFollowedByUserId(), followRecordDto.getFollowedToUserId())) {
             return true;
         }
-        var followModel = MapperUtil
+        FollowRecord followModel = MapperUtil
                 .getModelMapper()
                 .map(followRecordDto, FollowRecord.class);
         try {
@@ -59,7 +59,7 @@ public class FollowRecordService {
 //        if (!followRecordRepository.existsByFollowedByUserIdAndFollowedToUserId(followRecordDto.getFollowedByUserId(), followRecordDto.getFollowedToUserId())) {
 //            return true;
 //        }
-//        var followModel = MapperUtil
+//        Follow followModel = MapperUtil
 //                .getModelMapper()
 //                .map(followRecordDto, FollowRecord.class);
 //        try {

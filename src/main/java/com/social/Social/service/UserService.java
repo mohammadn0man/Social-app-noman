@@ -74,7 +74,7 @@ public class UserService implements UserDetailsService {
      * @return object with signing data like jwt etc if successful
      */
     public AuthResponseDto createUser(UserDto userDto) {
-        var userModel = MapperUtil.getModelMapper().map(userDto, User.class);
+        User userModel = MapperUtil.getModelMapper().map(userDto, User.class);
         userModel.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
         try {
             userRepository.save(userModel);
@@ -83,7 +83,7 @@ public class UserService implements UserDetailsService {
             return null;
         }
 
-        final var userDetails = loadUserByUsername(userModel.getUserName());
+        final CustomUserDetails userDetails = loadUserByUsername(userModel.getUserName());
         final String jwt = jwtTokenUtil.generateToken(userDetails);
 
         return getAuthResponseDto(userDetails, jwt);
@@ -114,7 +114,7 @@ public class UserService implements UserDetailsService {
             return null;
         }
 
-        final var userDetails = loadUserByUsername(authRequestDto.getUsername());
+        final CustomUserDetails userDetails = loadUserByUsername(authRequestDto.getUsername());
 
         final String jwt = jwtTokenUtil.generateToken(userDetails);
 
@@ -142,8 +142,8 @@ public class UserService implements UserDetailsService {
      * @return returns iterable list
      */
     public List<UserDto> allUser() {
-        var list = (List<User>) userRepository.findAll();
-        var result = new ArrayList<UserDto>();
+        List<User> list = (List<User>) userRepository.findAll();
+        List<UserDto> result = new ArrayList<UserDto>();
         for (User i : list) {
             result.add(
                     MapperUtil.getModelMapper().map(i, UserDto.class)
