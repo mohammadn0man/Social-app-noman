@@ -10,6 +10,7 @@ import com.social.Social.repository.UserRepository;
 import com.social.Social.util.CustomUserDetails;
 import com.social.Social.util.MapperUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -19,6 +20,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -61,7 +64,7 @@ public class UserService implements UserDetailsService {
         return userRepository.existsByUserName(username);
     }
 
-    public Optional<User> getUserById(int id){
+    public Optional<User> getUserById(int id) {
         return userRepository.findById(id);
     }
 
@@ -83,11 +86,16 @@ public class UserService implements UserDetailsService {
         final var userDetails = loadUserByUsername(userModel.getUserName());
         final String jwt = jwtTokenUtil.generateToken(userDetails);
 
-        return (new AuthResponseDto(
+        return getAuthResponseDto(userDetails, jwt);
+    }
+
+    @NotNull
+    private AuthResponseDto getAuthResponseDto(CustomUserDetails userDetails, String jwt) {
+        return new AuthResponseDto(
                 userDetails.getUsername(),
                 userDetails.getFullName(),
                 userDetails.getUserId(),
-                jwt));
+                jwt);
     }
 
     /***
@@ -110,11 +118,7 @@ public class UserService implements UserDetailsService {
 
         final String jwt = jwtTokenUtil.generateToken(userDetails);
 
-        return (new AuthResponseDto(
-                userDetails.getUsername(),
-                userDetails.getFullName(),
-                userDetails.getUserId(),
-                jwt));
+        return getAuthResponseDto(userDetails, jwt);
     }
 
     /***
@@ -130,6 +134,22 @@ public class UserService implements UserDetailsService {
             return false;
         }
         return true;
+    }
+
+    /**
+     * list all users to follow
+     *
+     * @return returns iterable list
+     */
+    public List<UserDto> allUser() {
+        var list = (List<User>) userRepository.findAll();
+        var result = new ArrayList<UserDto>();
+        for (User i : list) {
+            result.add(
+                    MapperUtil.getModelMapper().map(i, UserDto.class)
+            );
+        }
+        return result;
     }
 
     /***

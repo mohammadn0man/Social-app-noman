@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -37,6 +39,11 @@ public class UserController {
     @GetMapping("/logout")
     public ResponseEntity<String> logout(@RequestHeader("Authorization") String token) throws RequestParameterException {
         return ResponseUtil.filterResponse(userService.logout(token));
+    }
+
+    @GetMapping("/all")
+    public List<UserDto> getAll(){
+        return  userService.allUser();
     }
 
     /***
