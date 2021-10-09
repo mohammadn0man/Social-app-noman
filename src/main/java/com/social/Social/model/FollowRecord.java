@@ -15,7 +15,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "follower_record")
 public class FollowRecord {
-
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)

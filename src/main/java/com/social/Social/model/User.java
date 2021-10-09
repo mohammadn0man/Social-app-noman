@@ -28,9 +28,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.TABLE,
             generator = "User_Gen")
     private int userId;
+
     @Column(unique = true)
     private String userName;
+
     private String fullName;
+
     private String password;
 
     @OneToMany(cascade = CascadeType.ALL, targetEntity = FollowRecord.class)

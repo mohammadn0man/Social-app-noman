@@ -20,6 +20,10 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
 
+    /**
+     * ignore Please just to chech if server is up and running
+     * @return details of alpha test user
+     */
     @GetMapping("/test")
     public String home() {
         return ("<p>"+userService.loadUserByUsername("alpha")+"</p>");

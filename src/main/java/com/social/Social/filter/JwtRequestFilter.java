@@ -49,11 +49,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             jwt = authorizationHeader.substring(7);
             try {
                 username = jwtService.extractUsername(jwt);
-                if (tokenService.isExist(jwt)){
-                    throw new ExpiredJwtException(new DefaultHeader(),new DefaultClaims(), "Expired Token");
+                if (tokenService.isExist(jwt)) {
+                    throw new ExpiredJwtException(new DefaultHeader(), new DefaultClaims(), "Expired Token");
                 }
             } catch (ExpiredJwtException e) {
-                //is it fine?
                 var sb = new StringBuilder();
                 sb.append("{ ");
                 sb.append("\"error\": \"Unauthorized\",\n");

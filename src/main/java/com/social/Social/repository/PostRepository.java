@@ -11,5 +11,6 @@ public interface PostRepository extends CrudRepository<Post, Integer> {
     @NotNull
     @Override
     List<Post> findAllById(@NotNull Iterable<Integer> iterable);
+
     List<Post> findAllByUser(User user);
 }

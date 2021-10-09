@@ -14,7 +14,7 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    // should be changed by client upon requirement
+    // Since it is a assignment test project I am using it this way
     private static final String SECRET_KEY = "social_secret";
 
     /***

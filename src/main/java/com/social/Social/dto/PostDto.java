@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -13,4 +15,5 @@ public class PostDto {
     private int postId;
     private int userId;
     private String postContent;
+    private Date timestamp;
 }

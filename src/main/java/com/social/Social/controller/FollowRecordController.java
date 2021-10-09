@@ -20,6 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class FollowRecordController {
     private final FollowRecordService followRecordService;
 
+    /**
+     * follow any other user
+     * @param followRecordDto id contains record data
+     * @return response 202 on successful else error
+     * @throws RequestParameterException for invalid params
+     */
     @PostMapping("/add")
     public ResponseEntity<String> followUser(@RequestBody FollowRecordDto followRecordDto) throws RequestParameterException {
         return ResponseUtil.filterResponse(followRecordService.follow(followRecordDto));
