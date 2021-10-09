@@ -14,7 +14,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "follower_record")
-public class FollowerRecord {
+public class FollowRecord {
 
     @Id
     @Column(name = "id")
@@ -23,10 +23,6 @@ public class FollowerRecord {
 
     @Column(name = "followed_by_user_id")
     private int followedByUserId;
-
-//    @OneToOne()
-//    @JoinColumn(name = "id")
-//    private FollowedRecord followed;
 
     @Column(name = "followed_to_user_id")
     private int followedToUserId;

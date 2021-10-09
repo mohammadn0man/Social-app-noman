@@ -61,6 +61,10 @@ public class UserService implements UserDetailsService {
         return userRepository.existsByUserName(username);
     }
 
+    public Optional<User> getUserById(int id){
+        return userRepository.findById(id);
+    }
+
     /***
      * create user with the input details
      * @param userDto user details obj

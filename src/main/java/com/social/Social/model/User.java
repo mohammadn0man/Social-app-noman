@@ -33,13 +33,13 @@ public class User {
     private String fullName;
     private String password;
 
-    @OneToMany(cascade = CascadeType.ALL, targetEntity = FollowerRecord.class)
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = FollowRecord.class)
     @JoinColumn(name = "followed_by_user_id")
-    private List<FollowerRecord> following;
+    private List<FollowRecord> following;
 
-    @OneToMany(cascade = CascadeType.ALL, targetEntity = FollowerRecord.class)
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = FollowRecord.class)
     @JoinColumn(name = "followed_to_user_id")
-    private List<FollowerRecord> followers;
+    private List<FollowRecord> followers;
 
     @JsonIgnore
     public String getPassword() {

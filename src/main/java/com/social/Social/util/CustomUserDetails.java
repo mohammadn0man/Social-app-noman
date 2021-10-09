@@ -1,6 +1,6 @@
 package com.social.Social.util;
 
-import com.social.Social.model.FollowerRecord;
+import com.social.Social.model.FollowRecord;
 import com.social.Social.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,8 +16,8 @@ public class CustomUserDetails implements UserDetails {
     private String userName;
     private String password;
     private String fullName;
-    private List<FollowerRecord> following;
-    private List<FollowerRecord> followers;
+    private List<FollowRecord> following;
+    private List<FollowRecord> followers;
     private int userId;
 
     public CustomUserDetails() {
@@ -37,6 +37,22 @@ public class CustomUserDetails implements UserDetails {
         return Arrays.stream(new String[]{"ROLE_USER"})
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
+    }
+
+    public List<FollowRecord> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(List<FollowRecord> following) {
+        this.following = following;
+    }
+
+    public List<FollowRecord> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(List<FollowRecord> followers) {
+        this.followers = followers;
     }
 
     @Override
